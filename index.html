@@ -4,23 +4,9 @@
   <meta charset="utf-8">
   <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
   <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="DESCRIPTION META TAG">
-  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
-  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
-  <meta property="og:url" content="URL OF THE WEBSITE"/>
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
-  <meta property="og:image" content="static/image/your_banner_image.png" />
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
-
-
-  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
-  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
-  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="description" content="Implicit Neural-Representation Learning for Elastic Deformable-Object Manipulations">
   <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="keywords" content="Grasping & Manipulation, Robot Learning: Reinforcement Learning, Assembly, Logistics and Manufacturing">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
@@ -57,8 +43,6 @@
   </script>
 </head>
 <body>
-
-
   <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
@@ -145,13 +129,13 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <source src="static/videos/INR-DOM_real_demos.mp4"
+      <video poster="" id="tree" autoplay controls muted loop style="width: 100%; height: auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+        <source src="static/videos/Supplementary Video.mp4"
         type="video/mp4">
       </video>
-      <h2 class="subtitle has-text-centered">
-        Experiment with INR-DOM: Implicit Neural-Representation Learning for Elastic Deformable-Object Manipulations 
-      </h2>
+      <!-- <h2 class="subtitle has-text-centered">
+        INR-DOM: Implicit Neural-Representation Learning for Elastic Deformable-Object Manipulations 
+      </h2> -->
     </div>
   </div>
 </section>
@@ -165,7 +149,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-          We aim to solve the problem of manipulating deformable objects, particularly elastic bands, in real-world scenarios. However, deformable object manipulation (DOM) requires a policy that works on a large state space due to the unlimited degree of freedom (DoF) of deformable objects. Further, their dense but partial observations (e.g., images or point clouds) may increase the sampling complexity and uncertainty in policy learning. To figure it out, we propose a novel implicit neural-representation (INR) learning for elastic DOMs, called INR-DOM. Our method learns consistent state representations associated with partially observable elastic objects reconstructing a complete and implicit surface represented as a signed distance function. Furthermore, we perform exploratory representation fine-tuning through reinforcement learning (RL) that enables RL algorithms to effectively learn exploitable representations while efficiently obtaining a DOM policy. We perform quantitative and qualitative analyses building three simulated environments and real-world manipulation studies with a Franka Emika Panda arm.          </p>
+          We aim to solve the problem of manipulating deformable objects, particularly elastic bands, in real-world scenarios. However, deformable object manipulation (DOM) requires a policy that works on a large state space due to the unlimited degree of freedom (DoF) of deformable objects. Further, their dense but partial observations (e.g., images or point clouds) may increase the sampling complexity and uncertainty in policy learning. To figure it out, we propose a novel implicit neural-representation (INR) learning for elastic DOMs, called INR-DOM. Our method learns consistent state representations associated with partially observable elastic objects reconstructing a complete and implicit surface represented as a signed distance function. Furthermore, we perform exploratory representation fine-tuning through reinforcement learning (RL) that enables RL algorithms to effectively learn exploitable representations while efficiently obtaining a DOM policy. We perform quantitative and qualitative analyses building three simulated environments and real-world manipulation studies with a Franka Emika Panda arm.</p>
         </div>
       </div>
     </div>
@@ -178,9 +162,13 @@
     <div class="container">
       <h2 class="title is-3">Overall Architecture</h2>
       <div id="framework" style="text-align: center;">
-        <img src="static/images/overview.svg" alt="inr-dom overall architecture">
+        <img src="static/images/overview.svg" alt="inr-dom overall architecture" style="max-width:90%; height:auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
         <div class="content has-text-justified" style="text-align: left;">
-          An overview of INR-DOM framework that aims to train the occlusion-robust state representation encoder $\Phi_\phi$, parameterized by $\phi$, of deformable objects (DOs) as well as the manipulation policy $\pi$. The training framework consists of two stages: 1) The first stage pre-trains a PointNet-based partial-to-complete variational autoencoder $(\Phi_\phi, \Psi)$ that embeds a partial point cloud $\mathbf{p}$ of a target DO into a latent embedding $\mathbf{z}$ and recovers the parameters $\mathbf{\theta}$ of an implicit signed distance field (SDF) network $\Omega_\theta$. This stage predicts full geometries leveraging two loss functions $\mathcal{L}_{\text{SDF}}$, $\mathcal{L}_{\text{skel}}$, along with three regularization loss functions: $\mathcal{L}_{\text{KL}}$, $\mathcal{L}_{\text{weight}}$, and $\mathcal{L}_{\text{cns}}$. 2) The second stage then improves the task-relevant representation power of the encoder $\Phi_\phi$ by jointly optimizing reinforcement learning (blue) with the loss $\mathcal{L}_{RL}$ and the contrastive learning (red) with the loss $\mathcal{L}_{\text{infoNCE}}$.        </div>
+        <ul style="margin-left: 1.5em; list-style-type: disc;">
+          <li>INR-DOM trains the occlusion-robust state representation encoder of deformable objects, and the manipulation policy.</li>
+          <li>The first stage pre-trains a PointNet-based partial-to-complete variational autoencoder using implicit surface reconstruction for geometric feature learning.</li>
+          <li>The second stage jointly optimizes the policy and the pre-trained encoder with reinforcement learning to enhance task-relevant representation power (blue), and updates the encoder using contrastive learning to capture episode correlations (red).</li>
+        </div>
       </div>
     </div>
   </div>
@@ -192,25 +180,30 @@
   <div class="hero-body">
     <div class="container">
       <h2 class="title is-3">Results</h2>
-      <h2 class="title is-4">Quantitative results</h2>
-      <div id="framework" style="text-align: center;">
-        <img src="static/images/recon_combined_bargraph.svg" alt="inr-dom result 0">
-        <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
-          Fig. 1. Comparison of point-cloud reconstruction performance for both seen and unseen types of partially observable rubber bands.
+      <h2 class="title is-4">Pre-training results</h2>
+      <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
+        <div class="item item-image1" style="display: flex; justify-content: center;">
+          <div style="display: flex;  flex-direction: column; max-width: 65%">
+            <img src="static/images/recon_combined_bargraph.svg" alt="inr-dom result 0" style="height: 100%; width: auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+            <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
+              Comparison of point cloud reconstruction performance for elastic bands
+            </div>
+          </div>
         </div>
-        <img src="static/images/random_tsne.svg" alt="inr-dom result 1">
-        <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
-          Fig. 2. Distribution of $2\cdot 10^4$ embeddings from random manipulation dataset used in the pre-training
+        <div class="item item-image2" style="display: flex; justify-content: center;">
+          <div style="display: flex;  flex-direction: column; max-width: 45%">
+            <img src="static/images/recon_qual.png" alt="inr-dom result 1" style="height: 100%; width: auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+            <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
+              (Top) Partial point cloud inputs, (Middle) Point clouds reconstructed by Point2Vec, (Bottom) SDF-based Meshes from INR-DOM
+            </div>
+          </div>
         </div>
-        <img src="static/images/reward_curves.svg" alt="inr-dom result 2">
-        <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
-          Fig. 3. Comparison of accumulated reward curves during training between INR-DOM and baseline models.
-        </div>
-        <img src="static/images/task_success_rates.png" alt="inr-dom result 3">
-        <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
-          Table 1. Comparison of task success rates  $[\%]$  across three simulated environments, based on the evaluation of 100 trials per environment.
-        </div>
-      </div>
+    </div>
+    <div class="content has-text-justified" style="text-align: left;">
+      <ul style="margin-left: 1.5em; list-style-type: disc;">
+        <li>INR-DOM shows better reconstruction performance than other point cloud completion methods.</li>
+        <li>Implicit surface representation leverages our encoder to capture the continuous deformation of stretchable surfaces.</li>
+        <li>INR-DOM robustly represents surfaces in occluded and intertwined parts.</li>
     </div>
   </div>
 </section>
@@ -219,12 +212,29 @@
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <h2 class="title is-4">Qualitative results</h2>
-      <div id="framework" style="text-align: center;">
-        <img src="static/images/recon_qual.png" alt="inr-dom result 4">
-        <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
-          Fig. 4. Comparison of occlusion-robust reconstruction performance between INR-DOM and Point2Vec. (Top) Point-cloud inputs of partially observable elastic bands. (Middle) Point clouds reconstructed by Point2Vec. (Bottom) SDF-based Meshes from INR-DOM.                    
+      <h2 class="title is-4">Fine-tuning results</h2>
+      <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
+        <div class="item item-image3" style="display: flex; justify-content: center;">
+          <div style="display: flex;  flex-direction: column; max-width: 65%">
+            <img src="static/images/trajectory_tsne.png" alt="inr-dom result 0" style="height: 100%; object-fit: contain; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+            <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
+              Distribution of embeddings from 10 disentanglement episodes
+            </div>
+          </div>
         </div>
+        <div class="item item-image2" style="display: flex; justify-content: center;">
+          <div style="display: flex;  flex-direction: column; max-width: 50%">
+            <img src="static/images/random_tsne.svg" alt="inr-dom result 1" style="height: 100%; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+            <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
+              Distribution of 20,000 embeddings from random manipulation dataset used in the pre-training.  
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content has-text-justified" style="text-align: left;">
+      <ul style="margin-left: 1.5em; list-style-type: disc;">
+        <li>Time-series contrastive learning makes our encoder cluster latent vectors for similar deformations</li>
+        <li>INR-DOM learns task-relevant representations and distinguishes visual ambiguity robustly.</li>
       </div>
     </div>
   </div>
@@ -233,41 +243,41 @@
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <h2 class="title is-4">real-world demonstration</h2>
+      <h2 class="title is-4">Simulation results</h2>
       <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
-        <div class="item item-video1" style="display: flex; justify-content: center;">
-          <div style="display: flex;  flex-direction: column;">
-            <video poster="" id="video1" autoplay controls muted loop height="100%">
-              <!-- Your video file here -->
-              <source src="static/videos/SealingOnly.mp4"
-              type="video/mp4">
-            </video>
-            <div class="subtitle has-text-centered">
-              Task 1: <i>Sealing</i>
+        <div class="item item-image1" style="display: flex; justify-content: center; gap: 2rem;">
+          <div style="display: flex;  flex-direction: column; max-width: 20%">
+            <img src="static/images/oring_insert_cropped.gif" alt="inr-dom result 0" style="height: 100%; width: auto; object-fit: contain; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+            <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
+              <i>Sealing</i>
+            </div>
+          </div>
+          <div style="display: flex;  flex-direction: column; max-width: 20%">
+            <img src="static/images/oring_install_cropped.gif" alt="inr-dom result 1" style="height: 100%; width: auto; object-fit: contain; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+            <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
+              <i>Installation</i>
+            </div>
+          </div>
+          <div style="display: flex;  flex-direction: column; max-width: 25%">
+            <img src="static/images/oring_disentanglement.gif" alt="inr-dom result 1" style="height: 100%; width: auto; object-fit: contain; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+            <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
+              <i>Disentanglement</i>
             </div>
           </div>
         </div>
-        <div class="item item-video2" style="display: flex; justify-content: center;">
-          <div style="display: flex;  flex-direction: column;">
-            <video poster="" id="video2" autoplay controls muted loop height="100%">
-              <!-- Your video file here -->
-              <source src="static/videos/InstallationOnly.mp4"
-              type="video/mp4">
-            </video>
-            <div class="subtitle has-text-centered">
-              Task 2: <i>Installation</i>
+        <div class="item item-image3" style="display: flex; justify-content: center;">
+          <div style="display: flex;  flex-direction: column; max-width: 50%">
+            <img src="static/images/reward_curves_cropped.svg" alt="inr-dom result 2" style="height: 100%; width: auto; object-fit: contain; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+            <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
+              Comparison of accumulated reward curves during training between INR-DOM and baseline models.
             </div>
           </div>
         </div>
-        <div class="item item-video3" style="display: flex; justify-content: center;">
-          <div style="display: flex;  flex-direction: column;">
-            <video poster="" id="video3" autoplay controls muted loop height="100%">
-              <!-- Your video file here -->
-              <source src="static/videos/Inr-Domvsserl.mp4"
-              type="video/mp4">
-            </video>
-            <div class="subtitle has-text-centered">
-              Task 3: Comparison between SERL+INR-DOM (point cloud) and SERL (RGB) in the <i>disentanglement</i> task using a single camera under visual ambiguity.
+        <div class="item item-image5" style="display: flex; justify-content: center;">
+          <div style="display: flex;  flex-direction: column; max-width: 50%">
+            <img src="static/images/task_success_rates.png" alt="inr-dom result 3" style="height: 100%; width: auto; object-fit: contain; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+            <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
+              Comparison of task success rates [%] across three simulated environments, based on 100 trials per environment.
             </div>
           </div>
         </div>
@@ -276,6 +286,72 @@
   </div>
 </section>
 
+<!-- End video carousel -->
+
+<!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-4">Fine-tuning results</h2>
+      <div id="framework" style="text-align: center;">
+        <img src="static/images/recon_qual.png" alt="inr-dom result 4">
+        <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
+          Fig. 4. Comparison of occlusion-robust reconstruction performance between INR-DOM and Point2Vec. (Top) Point-cloud inputs of partially observable elastic bands. (Middle) Point clouds reconstructed by Point2Vec. (Bottom) SDF-based Meshes from INR-DOM.                    
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-4">Real-world demonstration</h2>
+      <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
+        <div class="item item-video1" style="display: flex; justify-content: center;">
+          <div style="display: flex;  flex-direction: column; max-width:70%;">
+            <video poster="" id="video1" autoplay controls muted loop style="height:auto; display:block; margin:0 auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+              <!-- Your video file here -->
+              <source src="static/videos/SealingOnly.mp4"
+              type="video/mp4">
+            </video>
+            <div class="subtitle has-text-centered">
+              <i>Sealing</i> task
+            </div>
+          </div>
+        </div>
+        <div class="item item-video2" style="display: flex; justify-content: center;">
+          <div style="display: flex;  flex-direction: column; max-width:70%;">
+            <video poster="" id="video2" autoplay controls muted loop style="height:auto; display:block; margin:0 auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+              <!-- Your video file here -->
+              <source src="static/videos/InstallationOnly.mp4"
+              type="video/mp4">
+            </video>
+            <div class="subtitle has-text-centered">
+              <i>Installation</i> task
+            </div>
+          </div>
+        </div>
+        <div class="item item-video3" style="display: flex; justify-content: center;">
+          <div style="display: flex;  flex-direction: column; max-width: 70%">
+            <video poster="" id="video3" autoplay controls muted loop style="height:auto; display:block; margin:0 auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+              <!-- Your video file here -->
+              <source src="static/videos/Inr-Domvsserl.mp4"
+              type="video/mp4">
+            </video>
+            <div class="subtitle has-text-centered">
+              Comparison between SERL+INR-DOM (point cloud) and SERL (RGB) in the <i>disentanglement</i> task using a single camera under visual ambiguity.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content has-text-justified" style="text-align: left;">
+      <ul style="margin-left: 1.5em; list-style-type: disc;">
+        <li>We successfully transfer INR-DOM to real-world tasks.</li>
+        <li>INR-DOM successfully distinguishes deformed states of elastic bands, whereas image-based methods fail due to visual ambiguities at intersections.</li>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- Image carousel -->
 <!-- <section class="hero is-small">
   <div class="hero-body">
