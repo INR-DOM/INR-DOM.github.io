@@ -41,6 +41,36 @@
       }
     };
   </script>
+
+  <style>
+    /* 한 줄에 3개 고정 배치 */
+    .videos-row {
+      display: flex;
+      flex-wrap: nowrap;         /* 줄바꿈 방지 */
+      gap: 24px;
+      justify-content: center;
+      align-items: flex-start;
+      overflow-x: auto;          /* 화면이 좁을 때 가로 스크롤 */
+      padding: 8px 0;
+    }
+    .videos-row .item {
+      flex: 1 1 0;
+      max-width: 33.333%;
+    }
+    .videos-row video {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    .videos-row .subtitle {
+      text-align: center;
+      margin-top: 6px;
+    }
+  </style>
+
 </head>
 <body>
   <section class="hero">
@@ -162,8 +192,8 @@
     <div class="container">
       <h2 class="title is-3">Overall Architecture</h2>
       <div id="framework" style="text-align: center;">
-        <img src="static/images/overview.svg" alt="inr-dom overall architecture" style="max-width:90%; height:auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
-        <div class="content has-text-justified" style="text-align: left;">
+        <img src="static/images/overview.svg" alt="inr-dom overall architecture" style="max-width:80%; height:auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
+        <div class="content has-text-justified" style="text-align:left; font-size: 1.2rem;">
         <ul style="margin-left: 1.5em; list-style-type: disc;">
           <li>INR-DOM trains the occlusion-robust state representation encoder of deformable objects, and the manipulation policy.</li>
           <li>The first stage pre-trains a PointNet-based partial-to-complete variational autoencoder using implicit surface reconstruction for geometric feature learning.</li>
@@ -181,9 +211,9 @@
     <div class="container">
       <h2 class="title is-3">Results</h2>
       <h2 class="title is-4">Pre-training results</h2>
-      <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
+      <!-- <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
         <div class="item item-image1" style="display: flex; justify-content: center;">
-          <div style="display: flex;  flex-direction: column; max-width: 65%">
+          <div style="display: flex;  flex-direction: column; max-width: 50%">
             <img src="static/images/recon_combined_bargraph.svg" alt="inr-dom result 0" style="height: 100%; width: auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
             <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
               Comparison of point cloud reconstruction performance for elastic bands
@@ -191,19 +221,41 @@
           </div>
         </div>
         <div class="item item-image2" style="display: flex; justify-content: center;">
-          <div style="display: flex;  flex-direction: column; max-width: 45%">
+          <div style="display: flex;  flex-direction: column; max-width: 50%">
             <img src="static/images/recon_qual.png" alt="inr-dom result 1" style="height: 100%; width: auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
             <div class="subtitle has-text-justified" style="display: flex; justify-content: center; text-align: center;">
               (Top) Partial point cloud inputs, (Middle) Point clouds reconstructed by Point2Vec, (Bottom) SDF-based Meshes from INR-DOM
             </div>
           </div>
         </div>
-    </div>
-    <div class="content has-text-justified" style="text-align: left;">
-      <ul style="margin-left: 1.5em; list-style-type: disc;">
-        <li>INR-DOM shows better reconstruction performance than other point cloud completion methods.</li>
-        <li>Implicit surface representation leverages our encoder to capture the continuous deformation of stretchable surfaces.</li>
-        <li>INR-DOM robustly represents surfaces in occluded and intertwined parts.</li>
+      </div> -->
+            <!-- Bulma columns 사용 -->
+      <div class="columns is-variable is-8 is-multiline">
+        <!-- 첫 번째 이미지 컬럼 -->
+        <div class="column is-half">
+          <figure class="image">
+            <img src="static/images/recon_combined_bargraph.svg" alt="inr-dom result 0" style="display: block; margin: 0 auto;height:300px; width:auto; border-radius: 8px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+          </figure>
+          <p class="subtitle has-text-centered mt-3">
+            Comparison of reconstruction performance for elastic bands
+          </p>
+        </div>
+        <!-- 두 번째 이미지 컬럼 -->
+        <div class="column is-half">
+          <figure class="image">
+            <img src="static/images/recon_qual.png" alt="inr-dom result 1" style="display: block; margin: 0 auto;height:300px; width:auto; border-radius: 8px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+          </figure>
+          <p class="subtitle has-text-centered mt-3">
+            (Top) Partial point cloud inputs, (Middle) Reconstructed by Point2Vec, (Bottom) SDF-based Meshes from INR-DOM
+          </p>
+        </div>
+      </div>
+      <div class="content has-text-justified" style="text-align:left; font-size: 1.2rem;">
+        <ul style="margin-left: 1.5em; list-style-type: disc;">
+          <li>INR-DOM shows better reconstruction performance than other point cloud completion methods.</li>
+          <li>Implicit surface representation leverages our encoder to capture the continuous deformation of stretchable surfaces.</li>
+          <li>INR-DOM robustly represents surfaces in occluded and intertwined parts.</li>
+      </div>
     </div>
   </div>
 </section>
@@ -213,7 +265,7 @@
   <div class="hero-body">
     <div class="container">
       <h2 class="title is-4">Fine-tuning results</h2>
-      <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
+      <!-- <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
         <div class="item item-image3" style="display: flex; justify-content: center;">
           <div style="display: flex;  flex-direction: column; max-width: 65%">
             <img src="static/images/trajectory_tsne.png" alt="inr-dom result 0" style="height: 100%; object-fit: contain; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
@@ -230,8 +282,28 @@
             </div>
           </div>
         </div>
+      </div> -->
+      <div class="columns is-variable is-8 is-multiline">
+        <!-- 첫 번째 이미지 컬럼 -->
+        <div class="column is-half">
+          <figure class="image">
+            <img src="static/images/trajectory_tsne.png" alt="inr-dom result 0" style="display: block; margin: 0 auto;height:300px; width:auto; border-radius: 8px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+          </figure>
+          <p class="subtitle has-text-centered mt-3">
+            Distribution of embeddings from 10 disentanglement episodes
+          </p>
+        </div>
+        <!-- 두 번째 이미지 컬럼 -->
+        <div class="column is-half">
+          <figure class="image">
+            <img src="static/images/random_tsne.svg" alt="inr-dom result 1" style="display: block; margin: 0 auto;height:300px; width:auto; border-radius: 8px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+          </figure>
+          <p class="subtitle has-text-centered mt-3">
+            Distribution of 20,000 embeddings from random manipulation dataset used in the pre-training.
+          </p>
+        </div>
       </div>
-      <div class="content has-text-justified" style="text-align: left;">
+      <div class="content has-text-justified" style="text-align:left; font-size: 1.2rem;">
       <ul style="margin-left: 1.5em; list-style-type: disc;">
         <li>Time-series contrastive learning makes our encoder cluster latent vectors for similar deformations</li>
         <li>INR-DOM learns task-relevant representations and distinguishes visual ambiguity robustly.</li>
@@ -244,7 +316,7 @@
   <div class="hero-body">
     <div class="container">
       <h2 class="title is-4">Simulation results</h2>
-      <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
+      <!-- <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
         <div class="item item-image1" style="display: flex; justify-content: center; gap: 2rem;">
           <div style="display: flex;  flex-direction: column; max-width: 20%">
             <img src="static/images/oring_insert_cropped.gif" alt="inr-dom result 0" style="height: 100%; width: auto; object-fit: contain; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
@@ -281,7 +353,63 @@
             </div>
           </div>
         </div>
-      </div>  
+      </div>   -->
+      <!-- 첫 번째 슬라이드: 3개 이미지, 중앙 정렬 & 간격 축소 -->
+      <div class="item">
+        <div class="columns is-mobile is-multiline is-centered is-variable is-2" style="padding: 0 8rem;">
+          <div class="column is-one-third">
+            <figure class="image">
+              <img src="static/images/oring_insert_cropped.gif"
+                  alt="Sealing"
+                  style="display: block; margin: 0 auto; height: 300px; width: auto; object-fit: contain; border-radius: 0.5rem; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+            </figure>
+            <p class="subtitle has-text-centered mt-2"><i>Sealing</i></p>
+          </div>
+          <div class="column is-one-third">
+            <figure class="image">
+              <img src="static/images/oring_install_cropped.gif"
+                  alt="Installation"
+                  style="display: block; margin: 0 auto; height: 300px; width: auto; object-fit: contain; border-radius: 0.5rem; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+            </figure>
+            <p class="subtitle has-text-centered mt-2"><i>Installation</i></p>
+          </div>
+          <div class="column is-one-third">
+            <figure class="image">
+              <img src="static/images/oring_disentanglement.gif"
+                  alt="Disentanglement"
+                  style="display: block; margin: 0 auto; height: 300px; width: auto; object-fit: cover; border-radius: 0.5rem; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+            </figure>
+            <p class="subtitle has-text-centered mt-2"><i>Disentanglement</i></p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- 두 번째 슬라이드: 2개 이미지 -->
+      <div class="item">
+        <div class="columns is-variable is-4 is-multiline is-mobile">
+          <div class="column is-half">
+            <figure class="image">
+              <img src="static/images/reward_curves_cropped.svg"
+                  alt="Reward curves"
+                  style="display: block; margin: 0 auto; height: 250px; width: auto; object-fit: contain; border-radius: 0.5rem; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+            </figure>
+            <p class="subtitle has-text-centered mt-2">
+              Comparison of accumulated reward curves during training between INR-DOM and baseline models.
+            </p>
+          </div>
+          <div class="column is-half">
+            <figure class="image">
+              <img src="static/images/task_success_rates.png"
+                  alt="Task success rates"
+                  style="display: block; margin: 0 auto; height: 250px; width: auto; object-fit: contain; border-radius: 0.5rem; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+            </figure>
+            <p class="subtitle has-text-centered mt-2">
+              Comparison of task success rates [%] across three simulated environments, based on 100 trials per environment.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -306,48 +434,48 @@
   <div class="hero-body">
     <div class="container">
       <h2 class="title is-4">Real-world demonstration</h2>
-      <div id="results-carousel" class="carousel results-carousel" style="align-items: center;">
-        <div class="item item-video1" style="display: flex; justify-content: center;">
-          <div style="display: flex;  flex-direction: column; max-width:70%;">
-            <video poster="" id="video1" autoplay controls muted loop style="height:auto; display:block; margin:0 auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
-              <!-- Your video file here -->
-              <source src="static/videos/SealingOnly.mp4"
-              type="video/mp4">
+
+      <!-- 기존 id="results-carousel" + carousel 클래스 제거 -->
+      <div class="videos-row">
+        <div class="item item-video1" style="display:flex; justify-content:center;">
+          <div style="display:flex; flex-direction:column; width:100%;">
+            <video id="video1" autoplay controls muted loop>
+              <source src="static/videos/SealingOnly.mp4" type="video/mp4">
             </video>
             <div class="subtitle has-text-centered">
-              <i>Sealing</i> task
+              <i>Sealing</i>
             </div>
           </div>
         </div>
-        <div class="item item-video2" style="display: flex; justify-content: center;">
-          <div style="display: flex;  flex-direction: column; max-width:70%;">
-            <video poster="" id="video2" autoplay controls muted loop style="height:auto; display:block; margin:0 auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
-              <!-- Your video file here -->
-              <source src="static/videos/InstallationOnly.mp4"
-              type="video/mp4">
+
+        <div class="item item-video2" style="display:flex; justify-content:center;">
+          <div style="display:flex; flex-direction:column; width:100%;">
+            <video id="video2" autoplay controls muted loop>
+              <source src="static/videos/InstallationOnly.mp4" type="video/mp4">
             </video>
             <div class="subtitle has-text-centered">
-              <i>Installation</i> task
+              <i>Installation</i>
             </div>
           </div>
         </div>
-        <div class="item item-video3" style="display: flex; justify-content: center;">
-          <div style="display: flex;  flex-direction: column; max-width: 70%">
-            <video poster="" id="video3" autoplay controls muted loop style="height:auto; display:block; margin:0 auto; border-radius: 8px; box-shadow:0 8px 16px  rgba(0,0,0,0.1);">
-              <!-- Your video file here -->
-              <source src="static/videos/Inr-Domvsserl.mp4"
-              type="video/mp4">
+
+        <div class="item item-video3" style="display:flex; justify-content:center;">
+          <div style="display:flex; flex-direction:column; width:100%;">
+            <video id="video3" autoplay controls muted loop>
+              <source src="static/videos/Inr-Domvsserl.mp4" type="video/mp4">
             </video>
             <div class="subtitle has-text-centered">
-              Comparison between SERL+INR-DOM (point cloud) and SERL (RGB) in the <i>disentanglement</i> task using a single camera under visual ambiguity.
+              Our method vs. image-based method in the <i>disentanglement</i> under visual ambiguity.
             </div>
           </div>
         </div>
       </div>
-      <div class="content has-text-justified" style="text-align: left;">
-      <ul style="margin-left: 1.5em; list-style-type: disc;">
-        <li>We successfully transfer INR-DOM to real-world tasks.</li>
-        <li>INR-DOM successfully distinguishes deformed states of elastic bands, whereas image-based methods fail due to visual ambiguities at intersections.</li>
+
+      <div class="content has-text-justified" style="text-align:left; font-size: 1.2rem;">
+        <ul style="margin-left:1.5em; list-style-type:disc;">
+          <li>We successfully transfer INR-DOM to real-world tasks.</li>
+          <li>INR-DOM successfully distinguishes deformed states, whereas image-based methods fail due to visual ambiguities at intersections.</li>
+        </ul>
       </div>
     </div>
   </div>
